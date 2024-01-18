@@ -7,9 +7,9 @@ using System.Xml.Linq;
 
 namespace Competitions.Models
 {
-    public class SportsmenID
+    public class AthleteID
     {
-        public SportsmenID(int id)
+        public AthleteID(int id)
         {
             ID = id;
         }
@@ -17,8 +17,8 @@ namespace Competitions.Models
         public int ID { get; }
         public override bool Equals(object? obj)
         {
-            return obj is SportsmenID sportsmenID &&
-                sportsmenID.ID == ID;
+            return obj is AthleteID athleteID &&
+                athleteID.ID == ID;
         }
 
         public override int GetHashCode()
@@ -26,18 +26,18 @@ namespace Competitions.Models
             return HashCode.Combine(ID);
         }
 
-        public static bool operator ==(SportsmenID sportsmenID1, SportsmenID sportsmenID2)
+        public static bool operator ==(AthleteID athleteId1, AthleteID athleteId2)
         {
-            if (sportsmenID1 is null && sportsmenID2 is null)
+            if (athleteId1 is null && athleteId2 is null)
             {
                 return true;
             }
 
-            return !(sportsmenID1 is null) && sportsmenID1.Equals(sportsmenID2);
+            return !(athleteId1 is null) && athleteId1.Equals(athleteId2);
         }
-        public static bool operator !=(SportsmenID sportsmenID1, SportsmenID sportsmenID2)
+        public static bool operator !=(AthleteID athleteId1, AthleteID athleteId2)
         {
-            return !(sportsmenID1 == sportsmenID2);
+            return !(athleteId1 == athleteId2);
         }
 
         public override string? ToString()

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,8 +12,11 @@ using Competitions.Services;
 
 namespace Competitions.ViewModels
 {
-    public class AddResult : ViewModelBase
+    public class AddResultViewModel : ViewModelBase
     {
+        private readonly Section _section;
+        private readonly ObservableCollection<String> _athletes;
+        public IEnumerable<String> Athletes => _athletes;
         private string? _name;
         public string? Name
         {
@@ -46,25 +50,26 @@ namespace Competitions.ViewModels
                 OnPropertyChanged(nameof(ResultValue));
             }
         }
-        private string? _results;
-        public string? Results
-        {
-            get
-            => _results;
-            set
-            {
-                _results = value;
-                OnPropertyChanged(nameof(ResultValue));
-            }
-        }
 
         public ICommand AddResultCommand { get; }
         public ICommand CancelCommand { get; }
-        public AddResult(Sportsmen sportsmen, 
-            NavigationService resultViewNavigationService)
+        public AddResultViewModel(Section section, NavigationService resultViewNavigationService)
         {
-            AddResultCommand = new AddResultCommand(this, sportsmen, resultViewNavigationService);
-            CancelCommand = new NavigateCommand(resultViewNavigationService);
+            AddResultCommand = new AddResultCommand(this, section, resultViewNavigationService); // TODO:
+            CancelCommand = new NavigateCommand(resultViewNavigationService, Pages.Navigation);
+
+            this._section = section;
+            _athletes = new ObservableCollection<String>();
+            UpdateAthletes();
+        }
+        private void UpdateAthletes()
+        {
+            _athletes.Clear();
+
+            foreach (Athlete athlete in _section.ShowAthletes())
+            {
+                _athletes.Add(athlete.Name);
+            }
         }
 
     }

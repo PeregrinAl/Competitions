@@ -13,25 +13,25 @@ namespace Competitions.Commands
 {
     public class AddResultCommand : CommandBase
     {
-        private readonly AddResult _addResult;
-        private readonly Sportsmen _sportsmen;
+        private readonly AddResultViewModel _addResult;
+        private readonly Section _section;
         private readonly NavigationService _resultViewNavigationService;
 
-        public AddResultCommand(AddResult addResult, 
-            Sportsmen sportsmen, 
+        public AddResultCommand(AddResultViewModel addResult, 
+            Section section, 
             NavigationService resultViewNavigationService)
         {
             _addResult = addResult;
-            _sportsmen = sportsmen;
+            _section = section;
             this._resultViewNavigationService = resultViewNavigationService;
             _addResult.PropertyChanged += OnViewModelPropertyChanged;
         }
 
         private void OnViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(AddResult.Name) ||
-                e.PropertyName == nameof(AddResult.ResultValue) ||
-                e.PropertyName == nameof(AddResult.Exercise)) {
+            if (e.PropertyName == nameof(AddResultViewModel.Name) ||
+                e.PropertyName == nameof(AddResultViewModel.ResultValue) ||
+                e.PropertyName == nameof(AddResultViewModel.Exercise)) {
                 OnCanExecutedChanged();
             }
         }
@@ -42,10 +42,10 @@ namespace Competitions.Commands
 
             try
             {
-                _sportsmen.AddResult(result);
+                _section.GetAthleteByName(_addResult.Name).AddResult(result);
                 MessageBox.Show("Result was added", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                _resultViewNavigationService.Navigate();
+                _resultViewNavigationService.Navigate(Pages.BestResults);
             }
             catch (Exception ex)
             {

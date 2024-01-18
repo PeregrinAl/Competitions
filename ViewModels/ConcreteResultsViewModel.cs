@@ -12,18 +12,22 @@ using Competitions.Stores;
 
 namespace Competitions.ViewModels
 {
-    public class ShowResults : ViewModelBase
+    public class ConcreteResultsViewModel : ViewModelBase
     {
-        private readonly Sportsmen _sportsmen;
+        private readonly Athlete _athlete;
         private readonly ObservableCollection<ResultViewModel> _results;
+        private readonly NavigationService _addResultNavigationService;
         public IEnumerable<ResultViewModel> Results => _results;
         public ICommand? AddResultCommand { get; }
-        public ShowResults(Sportsmen sportsmen, NavigationService AddResultNavigationService)
+        public ICommand? CancelCommand { get; }
+        public ConcreteResultsViewModel(Athlete athlete, NavigationService AddResultNavigationService)
         {
-            _sportsmen = sportsmen;
+            _athlete = athlete;
             _results = new ObservableCollection<ResultViewModel>();
+            _addResultNavigationService = AddResultNavigationService;
 
-            AddResultCommand = new NavigateCommand(AddResultNavigationService);
+            AddResultCommand = new NavigateCommand(AddResultNavigationService, Pages.AddResult);
+            CancelCommand = new NavigateCommand(AddResultNavigationService, Pages.Navigation);
 
             UpdateResults();
         }
@@ -32,9 +36,9 @@ namespace Competitions.ViewModels
         {
             _results.Clear();
 
-            foreach (Result result in _sportsmen.ShowResults())
+            foreach (Result result in _athlete.ShowResults())
             {
-                ResultViewModel resultViewModel = new ResultViewModel(result, _sportsmen);
+                ResultViewModel resultViewModel = new ResultViewModel(result, _athlete, _addResultNavigationService);
                 _results.Add(resultViewModel);
             }
         }

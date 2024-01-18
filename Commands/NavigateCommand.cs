@@ -12,15 +12,17 @@ namespace Competitions.Commands
     public class NavigateCommand : CommandBase
     {
         private readonly NavigationService _navigationService;
+        private readonly Pages page;
 
-        public NavigateCommand(NavigationService navigationService)
+        public NavigateCommand(NavigationService navigationService, Pages page)
         {
             _navigationService = navigationService;
+            this.page = page;
         }
 
         public override void Execute(object? parameter)
         {
-            _navigationService.Navigate();
+            _navigationService.Navigate(page); // TODO:
         }
     }
 }

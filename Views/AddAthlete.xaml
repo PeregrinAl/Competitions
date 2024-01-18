@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Competitions.Views.AddResult"
+﻿<UserControl x:Class="Competitions.Views.AddAthlete"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -14,14 +14,12 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
         <TextBlock
             Grid.Row="0"
-            Margin="20,10,0,0"
             Style="{StaticResource Header}"
-            Text="Add Result" />
+            Text="Add Athlete" />
 
         <Grid Grid.Row="1" Margin="20,25,0,0">
             <Grid.RowDefinitions>
@@ -33,12 +31,11 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Row="0" Text="Athlete" />
-            <ComboBox
+            <TextBox
                 Grid.Row="1"
-                Margin="0, 5, 0, 0"
-                ItemsSource="{Binding Athletes, UpdateSourceTrigger=PropertyChanged}"
-                SelectedItem="{Binding Name}"
-             />
+                Margin="0,5,0,0"
+                AutomationProperties.AutomationId="AddAthleteSportsmenTextBox"
+                Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
         </Grid>
 
         <Grid Grid.Row="2" Margin="20,10,0,0">
@@ -53,44 +50,23 @@
             <TextBlock
                 Grid.Row="0"
                 Grid.Column="0"
-                Text="Exercise" />
+                Text="WeaponType" />
             <TextBox
                 Grid.Row="1"
                 Grid.Column="0"
                 Margin="0,5,0,0"
-                AutomationProperties.AutomationId="AddResultExerciseTextBox"
-                Text="{Binding Exercise, UpdateSourceTrigger=PropertyChanged}" />
-        </Grid>
-
-        <Grid Grid.Row="3" Margin="20,10,0,0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto" SharedSizeGroup="FirstColumn" />
-            </Grid.ColumnDefinitions>
-
-            <TextBlock
-                Grid.Row="0"
-                Grid.Column="0"
-                Text="Result value" />
-            <TextBox
-                Grid.Row="1"
-                Grid.Column="0"
-                Margin="0,5,0,0"
-                AutomationProperties.AutomationId="AddResultResultValueTextBox"
-                Text="{Binding ResultValue, UpdateSourceTrigger=PropertyChanged}" />
+                AutomationProperties.AutomationId="AddAthleteWeaponTypeTextBox"
+                Text="{Binding WeaponType, UpdateSourceTrigger=PropertyChanged}" />
         </Grid>
 
         <StackPanel
-            Grid.Row="4"
+            Grid.Row="3"
             Margin="20,25,0,0"
             Orientation="Horizontal">
             <Button
-                AutomationProperties.AutomationId="MakeReservationSubmitButton"
-                Content="Submit" 
-                Command="{Binding AddResultCommand}"/>
+                AutomationProperties.AutomationId="AddAthleteSubmitButton"
+                Content="Submit"
+                Command="{Binding AddAthleteCommand}"/>
             <Button
                 Margin="10,0,0,0"
                 Content="Cancel"
@@ -99,7 +75,7 @@
         </StackPanel>
 
         <TextBlock
-            Grid.Row="5"
+            Grid.Row="4"
             Margin="0,20,0,0"
             AutomationProperties.AutomationId="AddResultSubmitErrorMessage"
             Foreground="Red"/>

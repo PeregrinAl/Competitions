@@ -7,16 +7,18 @@ using Competitions.Exceptions;
 
 namespace Competitions.Models
 {
-    public class Sportsmen
+    public class Athlete
     {
         private readonly List<Result> _results = new List<Result>();
-        public SportsmenID SportsmenID { get; }
+        public AthleteID AthleteID { get; }
         public string Name { get; }
+        public string weaponType { get; }
 
-        public Sportsmen(SportsmenID sportsmenID, string name)
+        public Athlete(AthleteID athleteID, string name, string weaponType)
         {
-            SportsmenID = sportsmenID;
+            AthleteID = athleteID;
             Name = name;
+            this.weaponType = weaponType;
         }
         public IEnumerable<Result> ShowResults()
         {
@@ -34,6 +36,11 @@ namespace Competitions.Models
                 }
             }*/
             _results.Add(result);
+        }
+
+        public void DeleteResult(Result result)
+        {
+            _results.Remove(result);
         }
     }
 }

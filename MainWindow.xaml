@@ -9,11 +9,23 @@
         Title="Results" Height="450" Width="800">
     <Grid>
         <Grid.Resources>
-            <DataTemplate DataType="{x:Type vms:AddResult}">
+            <DataTemplate DataType="{x:Type vms:AddResultViewModel}">
                 <views:AddResult/>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type vms:ShowResults}">
+            <DataTemplate DataType="{x:Type vms:AddAthleteViewModel}">
+                <views:AddAthlete/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:ConcreteResultsViewModel}">
                 <views:ShowResults/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:NavigationViewModel}">
+                <views:Navigation/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:ResultsNavigationViewModel}">
+                <views:ResultsNavigation/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:BestResultsViewModel}">
+                <views:BestResults/>
             </DataTemplate>
         </Grid.Resources>
         <ContentControl Content="{Binding CurrentViewModel}"/>
